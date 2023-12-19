@@ -52,6 +52,13 @@ class MyTestCase(unittest.TestCase):
         result = Convertisseur.convertir(nombre)
         self.assertEqual('VIII', result)
 
+    def test_neuf(self):
+        # n est le chiffre 9
+        nombre = 9
+        # n en nombres romains
+        result = Convertisseur.convertir(nombre)
+        self.assertEqual('IX', result)
+
 
 if __name__ == '__main__':
     unittest.main()
