@@ -1,14 +1,14 @@
 
 current_date=$(date "+%Y-%m-%d_%H-%M-%S")
 # Définir le chemin du répertoire où vous souhaitez créer le nouveau dossier
-destination_directory="C:\Users\Salah\Desktop\Cours\Integration continue"
+destination_directory="C:\Users\Salah\Desktop\CI"
 
 # Créer le nouveau dossier dans le répertoire spécifié
 mkdir -p "$destination_directory/clone$current_date"
 cd "$destination_directory/clone$current_date" || { echo "Impossible d'accéder au répertoire." ; exit 1; }
 
 # Cloner le dépôt depuis GitHub dans le répertoire nouvellement créé
-git clone https://github.com/SalahOr20/NombreRomain.git .
+git clone https://github.com/SalahOr20/NombresRomain.git .
 
 # Mise à jour du dépôt local
 git checkout dev
@@ -20,21 +20,21 @@ python CI/Test.py
 
 
 if [ $? -eq 0 ]; then
-    git rebase dev master
+    git rebase dev main
     git push origin dev
 
-    # Vérifier si la branche locale master est derrière la branche distante
-    if git diff --quiet origin/master master; then
+    # Vérifier si la branche locale main est derrière la branche distante
+    if git diff --quiet origin/main main; then
         # Si elles sont identiques, il n'y a pas besoin de pull
-        git push origin master
+        git push origin main
     else
         # Si la branche locale est derrière, pull pour intégrer les changements distants
-        git pull origin master
+        git pull origin main
 
         # Vérifier si le pull a généré des conflits
         if [ $? -eq 0 ]; then
             # S'il n'y a pas de conflits, repousser les modifications
-            git push origin master
+            git push origin main
         else
             # Sinon, indiquer la nécessité de résoudre les conflits
             echo "Des conflits sont présents. Veuillez résoudre les conflits dans la branche master avant de continuer."
